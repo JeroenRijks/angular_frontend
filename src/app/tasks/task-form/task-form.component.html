@@ -1,0 +1,9 @@
+<form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+  <label>
+    Name:
+    <input type="text" formControlName="name">
+  </label>
+  <br>
+  <button type="submit" [disabled]="!taskForm.valid">Submit</button>
+
+</form>
