@@ -19,8 +19,12 @@ export class TaskListComponent implements OnInit {
     });
   }
 
-  deleteTaskByIndex(index: number) {
+  deleteTaskByIndex(index: number): void {
     if (index > -1) {
+      console.log("AAAAAAAAAAAAAAAAAAAAAAAAAA");
+      console.log(index)
+      console.log("BBBBBBBBBBBBBBBBBBBBBBBBBB");
+      console.log(this.tasks[index]);
       this.taskService.deleteTaskById(this.tasks[index].taskId).subscribe();
       this.tasks.splice(index, 1);
     }

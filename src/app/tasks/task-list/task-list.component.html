@@ -1,7 +1,7 @@
 <h2>Tasks</h2>
 <ul class="tasks">
   <li *ngFor="let task of tasks; let i = index">
-    <button (click)="deleteTaskById(i)">Delete</button>
+    <button (click)="deleteTaskByIndex(i)">Delete</button>
     {{task.name}}
   </li>
 </ul>

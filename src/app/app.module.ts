@@ -6,15 +6,11 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from '../app-routing.module';
-import { TaskListComponent } from './tasks/task-list/task-list.component';
-import { TaskFormComponent } from './tasks/task-form/task-form.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    TaskListComponent,
-    TaskFormComponent,
   ],
   imports: [
     BrowserModule,

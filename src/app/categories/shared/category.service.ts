@@ -17,7 +17,7 @@ export class CategoryService {
 
   constructor(private http: HttpClient) { }
 
-  baseURL = 'http://localhost:8080/api/category';
+  baseURL = 'http://localhost:8080/api/category/';
 
   getAllCategories(): Observable<any> {
     return this.http.get(this.baseURL);
