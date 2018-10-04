@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-{path: 'task', loadChildren: 'src/app/tasks/task.module#TaskModule'},
-{path: 'category', loadChildren: 'src/app/categories/category.module#CategoryModule'},
-{path: '', redirectTo: 'task', pathMatch: 'full'}
+{path: 'tasks', loadChildren: 'src/app/tasks/task.module#TaskModule'},
+{path: 'categories', loadChildren: 'src/app/categories/category.module#CategoryModule'},
+{path: '', redirectTo: 'tasks', pathMatch: 'full'}
 ]
 
 @NgModule({

@@ -19,7 +19,7 @@ export class CategoryListComponent implements OnInit {
     });
   }
 
-  deleteTaskByIndex(index: number) {
+  deleteCategoryByIndex(index: number) {
     if (index > -1) {
       this.categoryService.deleteCategoryById(this.categories[index].categoryId).subscribe();
       this.categories.splice(index, 1);
