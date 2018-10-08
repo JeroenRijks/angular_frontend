@@ -1,11 +1,23 @@
-<nav class="navbar navbar-fixed-top navbar-dark bg-inverse">
-    <div class="container">
-        <a class="navbar-brand">Angular Router</a>
-        <ul class="nav navbar-nav" routerLinkActive="active">
-            <li class="nav-item"><a class="nav-link" routerLink="tasks">Tasks</a></li>
-            <li class="nav-item"><a class="nav-link" routerLink="categories">Categories</a></li>
-        </ul>
+<div class="navbar">
+    <div class="dropdown">
+      <button routerLink="tasks" class="dropbtn">Tasks
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="tasks">To do list</a>
+        <a href="tasks/save">New task</a>
+      </div>
     </div>
-</nav>
+    <div class="dropdown">
+        <button routerLink="categories" class="dropbtn">Categories
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+          <a href="categories/">See all categories</a>
+          <a href="categories/save">New category</a>
+        </div>
+    </div>
+  
+</div> 
 
 <router-outlet></router-outlet>
