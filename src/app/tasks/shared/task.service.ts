@@ -6,7 +6,7 @@ import { Task } from './task';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': 'http://localhost:4200'
+    'Access-Control-Allow-Origin': 'http://localhost:4200' // TODO Remove this (see .23)
   })
 };
 
@@ -20,7 +20,7 @@ export class TaskService {
   baseURL = 'http://localhost:8080/api/task/';
 
   getAllTasks(): Observable<any> {
-    return this.http.get(this.baseURL,httpOptions);
+    return this.http.get(this.baseURL,httpOptions); // TODO Remove httpOptions
   }
 
   getTaskById(id: number): Observable<any> {

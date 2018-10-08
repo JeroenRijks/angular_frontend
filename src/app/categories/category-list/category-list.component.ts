@@ -12,7 +12,6 @@ import { MatTableDataSource } from '@angular/material';
 export class CategoryListComponent implements OnInit {
 
   categories: MatTableDataSource<Category>;
-
   displayedColumns = ['name','actions'];
 
   constructor(private categoryService: CategoryService) { }
@@ -23,6 +22,10 @@ export class CategoryListComponent implements OnInit {
     });
   }
 
+  updateTable(){
+    this.categories = new MatTableDataSource(this.categories.data);
+  }
+
   deleteCategoryById(categoryId: number): void {
       this.categoryService.deleteCategoryById(categoryId).subscribe();
       this.spliceFromTable(categoryId);
@@ -31,15 +34,10 @@ export class CategoryListComponent implements OnInit {
   spliceFromTable(deletedCategoryId: Number): void {
     for (var index = 0; index < this.categories.data.length; index++) {
       if (this.categories.data[index].categoryId == deletedCategoryId) {
-        this.updateTable(index);
+        this.categories.data.splice(index,1);
+        this.updateTable();
         break;
       };
     };
   }
-
-  updateTable(index: number){
-    this.categories.data.splice(index,1);
-    this.categories = new MatTableDataSource(this.categories.data);
-  }
-
 }

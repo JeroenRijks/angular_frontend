@@ -6,14 +6,17 @@ import { TaskFormComponent } from './task-form/task-form.component';
 
 const routes: Routes = [
   {path: '', component: TaskListComponent},
-  {path: 'task/:id', component: TaskFormComponent},
-  {path: 'task', component: TaskFormComponent}
+  {path: 'form/:id', component: TaskFormComponent},
+  {path: 'form', component: TaskFormComponent}
 ]
 
 @NgModule({
   imports: [
     RouterModule.forChild(routes)
   ],
-  declarations: []
+  declarations: [],
+  exports: [
+    RouterModule
+  ]
 })
 export class TaskRoutingModule { }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryService } from '../shared/category.service';
 
 @Component({
@@ -14,9 +14,12 @@ export class CategoryFormComponent implements OnInit {
     categoryId: new FormControl,
     name: new FormControl('', Validators.required)
   });
+  id: number;
   isExisting: boolean;
 
-  constructor(private route: ActivatedRoute, private categoryService: CategoryService) { }
+  constructor(private route: ActivatedRoute,
+              private router: Router,
+              private categoryService: CategoryService) { }
 
   ngOnInit() {
     this.determineIsExisting();
@@ -25,26 +28,29 @@ export class CategoryFormComponent implements OnInit {
     }
   }
 
-  onSubmit() {
-    if (this.isExisting) {
-      this.categoryService.updateCategory(this.categoryForm.get('id').value, this.categoryForm.getRawValue()).subscribe();
-    } else {
-      this.categoryService.addCategory(this.categoryForm.getRawValue()).subscribe();
-    }
-  }
-
   determineIsExisting() {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
+    this.id = +this.route.snapshot.paramMap.get('id');
+    if (this.id) {
       this.isExisting = true;
     } else {
       this.isExisting = false;
     }
   }
 
+  onSubmit() {
+    if (this.isExisting) {
+      this.categoryService.updateCategory(this.id, this.categoryForm.getRawValue()).subscribe(category => {
+        this.router.navigate(['/categories']);
+      });
+    } else {
+      this.categoryService.addCategory(this.categoryForm.getRawValue()).subscribe(category => {        
+        this.router.navigate(['/categories']);
+      });
+    }
+  }
+
   populateCategoryFields() {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.categoryService.getCategoryById(+id).subscribe(category => {
+    this.categoryService.getCategoryById(this.id).subscribe(category => {
       this.categoryForm.patchValue({
         categoryId: category.categoryId,
         name: category.name

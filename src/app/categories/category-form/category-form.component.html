@@ -1,9 +1,9 @@
-<form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="categoryForm">
   <label>
     Name:
     <input type="text" formControlName="name">
   </label>
   <br>
-  <button type="submit" [disabled]="!categoryForm.valid">Submit</button>
+  <button (click)="onSubmit()" [disabled]="!categoryForm.valid">Submit</button>
 
 </form>

@@ -1,7 +1,48 @@
-<h2>Tasks</h2>
-<ul class="tasks">
-  <li *ngFor="let task of tasks; let i = index">
-    <button (click)="deleteTaskByIndex(i)">Delete</button>
-    {{task.name}}
-  </li>
-</ul>
+<table mat-table [dataSource]="tasks" >
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let task"> 
+      <a routerLink="/tasks/form/{{task.taskId}}">{{task.name}}</a> 
+    </td>
+  </ng-container>
+  
+  <ng-container matColumnDef="category">
+    <th mat-header-cell *matHeaderCellDef> Category </th>
+    <td mat-cell *matCellDef="let task"> 
+      <a>{{task.category.name}}</a> 
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="importance">
+    <th mat-header-cell *matHeaderCellDef> Importance </th>
+    <td mat-cell *matCellDef="let task"> 
+      <a>{{task.importance}}</a> 
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="completed">
+    <th mat-header-cell *matHeaderCellDef> Completed? </th>
+    <td mat-cell *matCellDef="let task"> 
+      <a>{{task.completed}}</a> 
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="deadline">
+    <th mat-header-cell *matHeaderCellDef> Deadline </th>
+    <td mat-cell *matCellDef="let task"> 
+      <a>{{task.deadline}}</a> 
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef> Actions </th>
+    <td mat-cell *matCellDef="let task"> 
+      <button mat-button (click)="deleteTaskById(task.taskId)"> Delete </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let myRowData; columns: displayedColumns"></tr>
+  
+</table>

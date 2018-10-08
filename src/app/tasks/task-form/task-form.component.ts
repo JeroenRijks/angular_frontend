@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TaskService } from '../shared/task.service';
 
 @Component({
@@ -15,8 +15,11 @@ export class TaskFormComponent implements OnInit {
     name: new FormControl('', Validators.required)
   });
   isExisting: boolean;
+  id: number;
 
-  constructor(private route: ActivatedRoute, private taskService: TaskService) { }
+  constructor(private route: ActivatedRoute, 
+              private router: Router,
+              private taskService: TaskService) { }
 
   ngOnInit() {
     this.determineIsExisting();
@@ -25,29 +28,36 @@ export class TaskFormComponent implements OnInit {
     }
   }
 
-  onSubmit() {
-    if (this.isExisting) {
-      this.taskService.updateTask(this.taskForm.get('id').value, this.taskForm.getRawValue()).subscribe();
-    } else {
-      this.taskService.addTask(this.taskForm.getRawValue()).subscribe();
-    }
-  }
-
   determineIsExisting() {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
+    this.id = +this.route.snapshot.paramMap.get('id');
+    if (this.id) {
       this.isExisting = true;
     } else {
       this.isExisting = false;
     }
   }
 
+  onSubmit() {
+    if (this.isExisting) {
+      this.taskService.updateTask(this.id, this.taskForm.getRawValue()).subscribe(task => {
+        this.router.navigate(['/tasks']);
+      });
+    } else {
+      this.taskService.addTask(this.taskForm.getRawValue()).subscribe(task => {        
+        this.router.navigate(['/tasks']);
+      });
+    }
+  }
+
   populateTaskFields() {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.taskService.getTaskById(+id).subscribe(task => {
+    this.taskService.getTaskById(this.id).subscribe(task => {
       this.taskForm.patchValue({
         taskId: task.taskId,
-        name: task.name
+        name: task.name,
+        category: task.category,
+        importance: task.importance,
+        deadline: task.deadline,
+        completed: task.completed
       })
     });
   }
