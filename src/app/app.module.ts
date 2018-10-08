@@ -7,11 +7,13 @@ import {MatTableModule} from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from '../app-routing.module';
+import { DynamicListComponent } from './dynamic-list/dynamic-list.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    DynamicListComponent,
   ],
   imports: [
     BrowserModule,

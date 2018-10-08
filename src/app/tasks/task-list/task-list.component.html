@@ -1,7 +1,10 @@
-<h2>Tasks</h2>
+<!-- <h2>Tasks</h2>
 <ul class="tasks">
   <li *ngFor="let task of tasks; let i = index">
     <button (click)="deleteTaskByIndex(i)">Delete</button>
     {{task.name}}
   </li>
-</ul>
+</ul> -->
+
+
+<app-dynamic-list [service]="getTaskService()" name="task"></app-dynamic-list>
