@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormArray, FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TaskService } from '../shared/task.service';
+import { PriorityTypes } from '../../priorityTypes';
 
 @Component({
   selector: 'app-task-form',
@@ -23,6 +24,7 @@ export class TaskFormComponent implements OnInit {
   });
   isExisting: boolean;
   id: number;
+  importanceValues = ["LOW","MEDIUM","HIGH"];
 
   constructor(private route: ActivatedRoute, 
               private router: Router,
@@ -45,7 +47,6 @@ export class TaskFormComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log("called onSubmit with task: ");
     console.log(this.taskForm.getRawValue());
     if (this.isExisting) {
       this.taskService.updateTask(this.id, this.taskForm.getRawValue()).subscribe(task => {

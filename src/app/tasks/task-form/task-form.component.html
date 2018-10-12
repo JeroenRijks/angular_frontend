@@ -1,37 +1,29 @@
 <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
-  <div>
-    <label>
-    Name:
-    <input type="text" formControlName="name">
-    </label>
-  </div>
-  <div formGroupName="category">
-    <label>
-      Category:
+    <div>
+      Name:
       <input type="text" formControlName="name">
-    </label>
-  </div>
-  <div>
-    <label>
-    Importance:
-    <input type="text" formControlName="importance">
-    </label>
-  </div>
-  <div>
-    <label>
-    Deadline:
-    <input type="date" formControlName="deadline">
-    </label>
-  </div>
-  <div>
-    <label>
-    Complete:
-    <input type="checkbox" formControlName="completed">
-    </label>
-  </div>
-
-  <p>
-  <button type="submit" [disabled]="!taskForm.valid">Submit</button>
-  </p>
-
-</form>
+    </div>
+    <div formGroupName="category">
+        Category:
+        <input type="text" formControlName="name">
+    </div>
+    <div>
+      Deadline:
+      <input type="date" formControlName="deadline">
+    </div>
+    <div>
+      Complete:
+      <input type="checkbox" formControlName="completed">
+    </div>
+    <div>
+      Importance:
+      <select formControlName="importance">
+        <option *ngFor="let faker of importanceValues">{{faker}}</option>
+      </select>
+    </div>
+    
+    <p>
+    <button type="submit" [disabled]="!taskForm.valid">Submit</button>
+    </p>
+  
+  </form>
