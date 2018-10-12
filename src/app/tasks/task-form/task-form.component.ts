@@ -26,6 +26,7 @@ export class TaskFormComponent implements OnInit {
     if (this.isExisting){
       this.populateTaskFields();
     }
+    console.log("isExisting: " + this.isExisting);
   }
 
   determineIsExisting() {

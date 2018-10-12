@@ -1,26 +1,24 @@
 <form [formGroup]="taskForm">
   <label>
     Name:
-    <input type="text" formControlName="name">
+    <input type="text" class="form-control" [value]="task.name" formControlName="name">
   </label>
   <label>
     Category:
     <input type="text" formControlName="category">
   </label>
   <label>
-    Name:
-    <input type="text" formControlName="importance">
+    Importance:
+    <input type="number" formControlName="importance">
   </label>
   <label>
     Deadline:
-    <input type="text" formControlName="deadline">
+    <input type="date" formControlName="deadline">
   </label>
   <label>
     Complete:
-    <!-- <input type="text" formControlName="completed"> -->
     <input type="checkbox" formControlName="completed">
   </label>
-
 
   <br>
   <button (click)="onSubmit()" [disabled]="!taskForm.valid">Submit</button>
