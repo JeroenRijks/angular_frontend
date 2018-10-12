@@ -1,26 +1,37 @@
-<form [formGroup]="taskForm">
-  <label>
+<form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label>
     Name:
-    <input type="text" class="form-control" [value]="task.name" formControlName="name">
-  </label>
-  <label>
-    Category:
-    <input type="text" formControlName="category">
-  </label>
-  <label>
+    <input type="text" formControlName="name">
+    </label>
+  </div>
+  <div formGroupName="category">
+    <label>
+      Category:
+      <input type="text" formControlName="name">
+    </label>
+  </div>
+  <div>
+    <label>
     Importance:
-    <input type="number" formControlName="importance">
-  </label>
-  <label>
+    <input type="text" formControlName="importance">
+    </label>
+  </div>
+  <div>
+    <label>
     Deadline:
     <input type="date" formControlName="deadline">
-  </label>
-  <label>
+    </label>
+  </div>
+  <div>
+    <label>
     Complete:
     <input type="checkbox" formControlName="completed">
-  </label>
+    </label>
+  </div>
 
-  <br>
-  <button (click)="onSubmit()" [disabled]="!taskForm.valid">Submit</button>
+  <p>
+  <button type="submit" [disabled]="!taskForm.valid">Submit</button>
+  </p>
 
 </form>

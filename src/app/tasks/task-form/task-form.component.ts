@@ -12,7 +12,14 @@ export class TaskFormComponent implements OnInit {
 
   taskForm = new FormGroup({
     taskId: new FormControl,
-    name: new FormControl('', Validators.required)
+    name: new FormControl('', Validators.required),
+    category: new FormGroup({
+      name: new FormControl(''),
+      categoryId: new FormControl('')
+    }),
+    importance: new FormControl(''),
+    deadline: new FormControl(''),
+    completed: new FormControl('')
   });
   isExisting: boolean;
   id: number;
@@ -26,7 +33,6 @@ export class TaskFormComponent implements OnInit {
     if (this.isExisting){
       this.populateTaskFields();
     }
-    console.log("isExisting: " + this.isExisting);
   }
 
   determineIsExisting() {
@@ -39,6 +45,8 @@ export class TaskFormComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log("called onSubmit with task: ");
+    console.log(this.taskForm.getRawValue());
     if (this.isExisting) {
       this.taskService.updateTask(this.id, this.taskForm.getRawValue()).subscribe(task => {
         this.router.navigate(['/tasks']);
@@ -52,14 +60,17 @@ export class TaskFormComponent implements OnInit {
 
   populateTaskFields() {
     this.taskService.getTaskById(this.id).subscribe(task => {
-      this.taskForm.patchValue({
+      this.taskForm.patchValue({  
         taskId: task.taskId,
         name: task.name,
-        category: task.category,
+        category: {
+          name: task.category.name,
+          categoryId: task.category.categoryId
+        },
         importance: task.importance,
         deadline: task.deadline,
         completed: task.completed
-      })
+      });
     });
   }
 }

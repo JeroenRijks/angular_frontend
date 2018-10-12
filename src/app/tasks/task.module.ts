@@ -6,6 +6,7 @@ import { MatTableModule } from '@angular/material';
 import { TaskRoutingModule } from './task-routing.module';
 import { TaskListComponent } from './task-list/task-list.component';
 import { TaskFormComponent } from './task-form/task-form.component';
+import { TaskReactiveFormComponent } from './task-reactive-form/task-reactive-form.component';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { TaskFormComponent } from './task-form/task-form.component';
   ],
   declarations: [
     TaskListComponent,
-    TaskFormComponent
+    TaskFormComponent,
+    TaskReactiveFormComponent
   ]
 })
 export class TaskModule { }
