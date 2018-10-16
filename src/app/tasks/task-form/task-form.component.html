@@ -1,12 +1,34 @@
-<form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="taskForm" (ngSubmit)="onSubmit(clickedCategory.value)">
     <div>
       Name:
       <input type="text" formControlName="name">
     </div>
-    <div formGroupName="category">
+    <div>
         Category:
-        <input type="text" formControlName="name">
+        <select #clickedCategory placeholder = "Test">
+          <ng-container *ngFor="let category of categories; let i = index">
+              <option *ngIf="category.categoryId !== activeCategoryId" [value]="i" >
+                  {{category.name}} 
+              </option>
+            <ng-container *ngIf="category.categoryId === activeCategoryId">
+                <option [value]="i" selected="selected">
+                    {{category.name}}
+                </option>
+            </ng-container>
+          </ng-container>
+        </select>
     </div>
+    <!-- <div formGroupName="category">
+        Category:
+        <select #clickedCategory placeholder = "Test">
+          <option *ngFor="let category of categories; let i = index" [value]="i" >
+            <ng-container *ngIf="i === 1; then selected=category">
+                {{category.name}}
+            </ng-container>
+            </option>
+        </select>
+    </div> -->
+
     <div>
       Deadline:
       <input type="date" formControlName="deadline">
@@ -18,12 +40,12 @@
     <div>
       Importance:
       <select formControlName="importance">
-        <option *ngFor="let faker of importanceValues">{{faker}}</option>
+        <option *ngFor="let value of priorityTypes">{{value}}</option>
       </select>
     </div>
     
     <p>
-    <button type="submit" [disabled]="!taskForm.valid">Submit</button>
+    <button type="submit" >Submit</button>
     </p>
   
   </form>
