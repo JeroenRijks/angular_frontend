@@ -1,3 +1,12 @@
+
+<select #clickedCategory>
+  <ng-container *ngFor="let category of categories; let i = index">
+    <option [value]="category.categoryId">{{category.name}}
+    </option>
+  </ng-container>
+</select>
+<button (click)="callFilteredTaskList(clickedCategory.value)"> Filter by chosen category </button>
+
 <table mat-table [dataSource]="tasks" >
 
   <ng-container matColumnDef="name">

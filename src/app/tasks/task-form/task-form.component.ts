@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TaskService } from '../shared/task.service';
 import { CategoryService } from '../../categories/shared/category.service';
 import { Category } from '../../categories/shared/category'
+import { Task } from '../shared/task';
 
 @Component({
   selector: 'app-task-form',
@@ -29,6 +30,7 @@ export class TaskFormComponent implements OnInit {
   categories: Category[];
   activeCategoryId: number;
   priorityTypes = ["LOW","MEDIUM","HIGH"];
+  asyncResult = Task;
 
   constructor(
     private route: ActivatedRoute, 
@@ -47,9 +49,9 @@ export class TaskFormComponent implements OnInit {
 
   getCategories() {
     this.categoryService.getAllCategories()
-      .subscribe(categories => 
-        this.categories = categories
-      );
+      .subscribe(categories => {
+        this.categories = categories;
+      });
   }
 
   determineIsExisting() {
@@ -85,7 +87,6 @@ export class TaskFormComponent implements OnInit {
   onSubmit(categoryIndex) {
     this.attachCategoryToForm(categoryIndex)
     this.submitForm();
-    this.router.navigate(['/tasks']);
   }
 
   attachCategoryToForm(index){
@@ -101,15 +102,64 @@ export class TaskFormComponent implements OnInit {
       this.sendPutRequest();
     } else {
       this.sendPostRequest();
-
     }
   }
   
   sendPutRequest() {
-    this.taskService.updateTask(this.id, this.taskForm.getRawValue()).subscribe();
+    this.taskService.updateTask(this.id, this.taskForm.getRawValue()).subscribe(()=>
+      this.redirectToTaskList()
+    );
+    
   }
 
   sendPostRequest() {
-    this.taskService.addTask(this.taskForm.getRawValue()).subscribe();
+    this.taskService.addTask(this.taskForm.getRawValue()).subscribe(()=>
+      this.redirectToTaskList()
+    );
+  }
+
+  redirectToTaskList() {
+    this.router.navigate(['/tasks']);
   }
 }
+
+// Async await approach
+
+// async onSubmit(categoryIndex) {
+//   this.attachCategoryToForm(categoryIndex)
+//   console.log("1 - onSubmit, before await submitForm() line")
+//   await this.submitForm();
+//   console.log("4 - onSubmit, after await submitForm() line");
+//   this.router.navigate(['/tasks']);
+// }
+
+// attachCategoryToForm(index){
+//   const categoryObject = this.taskForm.get('category') as FormGroup;
+//   categoryObject.setValue({
+//     name: this.categories[index].name,
+//     categoryId: this.categories[index].categoryId
+//   });
+// }
+
+// submitForm() {
+//   if (this.isExisting) {
+//     this.sendPutRequest();
+//   } else {
+//     this.sendPostRequest();
+//   }
+// }
+
+// sendPutRequest() {
+//   console.log("2 - within putRequest, before backend call");
+//   this.taskService.updateTask(this.id, this.taskForm.getRawValue()).toPromise();
+//   console.log("3 - within putRequest, after 2nd await");
+// }
+
+// sendPostRequest() {
+//   this.taskService.addTask(this.taskForm.getRawValue()).subscribe();
+// }
+
+// redirectToTaskList() {
+//   this.router.navigate(['/tasks']);
+// }
+// }

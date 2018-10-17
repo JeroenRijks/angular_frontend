@@ -5,7 +5,7 @@
     </div>
     <div>
         Category:
-        <select #clickedCategory placeholder = "Test">
+        <select #clickedCategory>
           <ng-container *ngFor="let category of categories; let i = index">
               <option *ngIf="category.categoryId !== activeCategoryId" [value]="i" >
                   {{category.name}} 
@@ -20,7 +20,7 @@
     </div>
     <!-- <div formGroupName="category">
         Category:
-        <select #clickedCategory placeholder = "Test">
+        <select #clickedCategory>
           <option *ngFor="let category of categories; let i = index" [value]="i" >
             <ng-container *ngIf="i === 1; then selected=category">
                 {{category.name}}

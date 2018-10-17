@@ -27,6 +27,10 @@ export class TaskService {
     return this.http.get(this.baseURL+ id);
   }
 
+  getTasksFilteredByCategory(categoryId: number): Observable<any> {
+    return this.http.get(this.baseURL + "filterByCategory/" + categoryId);
+  }
+
   addTask(task: Task): Observable<Task> {
     return this.http.post<Task>(this.baseURL, task, httpOptions);
   }
