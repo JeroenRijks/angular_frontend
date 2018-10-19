@@ -15,6 +15,7 @@ export class TaskListComponent implements OnInit {
   tasks: MatTableDataSource<Task>;
   displayedColumns = ['name', 'category', 'importance','completed', 'deadline', 'actions'];
   categories: Category[];
+  importances: string[];
 
   constructor(
     private taskService: TaskService,
@@ -26,6 +27,7 @@ export class TaskListComponent implements OnInit {
       this.tasks = new MatTableDataSource(tasks);
     });
     this.getCategories();
+    this.getImportances();
   }
 
   getCategories() {
@@ -35,12 +37,22 @@ export class TaskListComponent implements OnInit {
       });
   }
 
-  callFilteredTaskList(filteringCategoryId: number) {
-    console.log(filteringCategoryId);
+  getImportances() {
+    this.importances = ["LOW","MEDIUM","HIGH"];
+  }
+
+  callTasksFilteredByCategory(filteringCategoryId: number) {
     this.taskService.getTasksFilteredByCategory(filteringCategoryId).subscribe(tasks => {
       this.tasks = new MatTableDataSource(tasks);
     });
   }
+
+  callTasksFilteredByImportance(filteringImportance: string) {
+    this.taskService.getTasksFilteredByImportance(filteringImportance).subscribe(tasks => {
+      this.tasks = new MatTableDataSource(tasks);
+    });
+  }
+
 
   deleteTaskById(taskId: number): void {
     this.taskService.deleteTaskById(taskId).subscribe();

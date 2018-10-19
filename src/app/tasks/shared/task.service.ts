@@ -31,6 +31,10 @@ export class TaskService {
     return this.http.get(this.baseURL + "filterByCategory/" + categoryId);
   }
 
+  getTasksFilteredByImportance(importance: string): Observable<any> {
+    return this.http.get(this.baseURL + "filterByImportance/" + importance);
+  }
+
   addTask(task: Task): Observable<Task> {
     return this.http.post<Task>(this.baseURL, task, httpOptions);
   }

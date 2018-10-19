@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Category } from '../shared/category';
 import { CategoryService } from '../shared/category.service';
 import { MatTableDataSource } from '@angular/material';
+import { TaskService } from '../../tasks/shared/task.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -12,9 +14,11 @@ import { MatTableDataSource } from '@angular/material';
 export class CategoryListComponent implements OnInit {
 
   categories: MatTableDataSource<Category>;
-  displayedColumns = ['name','actions'];
+  displayedColumns = ['name','showRelevantTasks','delete'];
 
-  constructor(private categoryService: CategoryService) { }
+  constructor(private categoryService: CategoryService,
+              private router: Router
+    ) { }
 
   ngOnInit() {
     this.categoryService.getAllCategories().subscribe(categories => {
@@ -24,6 +28,10 @@ export class CategoryListComponent implements OnInit {
 
   updateTable(){
     this.categories = new MatTableDataSource(this.categories.data);
+  }
+
+  showRelevantTasks(categoryId: number): void {
+    this.router.navigate(['/tasks']);   // Reorganise filtering using urls
   }
 
   deleteCategoryById(categoryId: number): void {

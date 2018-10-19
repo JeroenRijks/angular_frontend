@@ -1,11 +1,22 @@
 
 <select #clickedCategory>
-  <ng-container *ngFor="let category of categories; let i = index">
+  <ng-container *ngFor="let category of categories">
     <option [value]="category.categoryId">{{category.name}}
     </option>
   </ng-container>
 </select>
-<button (click)="callFilteredTaskList(clickedCategory.value)"> Filter by chosen category </button>
+<button (click)="callTasksFilteredByCategory(clickedCategory.value)"> Filter by chosen category </button>
+<br>
+
+<select #clickedImportance>
+      <option value="LOW">Low</option>
+      <option value="MEDIUM">Medium</option>
+      <option value="HIGH">High</option>
+</select>
+<button (click)="callTasksFilteredByImportance(clickedImportance.value)"> Filter by chosen importance </button>
+<br>
+
+<button class="clearFilters" (click)="ngOnInit()"> Clear all filters </button>
 
 <table mat-table [dataSource]="tasks" >
 
